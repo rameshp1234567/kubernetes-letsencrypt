@@ -4,7 +4,6 @@ https://github.com/marcel-dempers/docker-development-youtube-series/blob/master/
 # Follow the below steps to create cert for app using ingress along with lets encrypt
 
 # get cert-manager 
-cd kubernetes/cert-manager/
 curl -LO https://github.com/jetstack/cert-manager/releases/download/v1.0.4/cert-manager.yaml
 
 mv cert-manager.yaml cert-manager-1.0.4.yaml
@@ -97,3 +96,19 @@ kubectl describe certificate hello
 kubectl get secrets
 NAME                  TYPE                                  DATA   AGE
 example-app-tls       kubernetes.io/tls                     2      84m
+
+# create a dns name using public ip address created by cluster
+# Find the public ip address (EXTERNAL-IP)
+kubectl get svc -n ingress-nginx
+# Output:
+NAME                                 TYPE           CLUSTER-IP     EXTERNAL-IP   PORT(S)                      AGE
+ingress-nginx-controller             LoadBalancer   10.0.127.192   20.81.112.9   80:30209/TCP,443:32655/TCP   120m
+ingress-nginx-controller-admission   ClusterIP      10.0.218.123   <none>        443/TCP                      120m
+
+#Find the same public ip adress (EXTERNAL-IP) from resource group created automatically by the same cluster
+1. Open Public IP Address
+2. Go to Configuration
+3. add the DNS name as "helloworldz"
+4. Save & run the app https://helloworldz.eastus.cloudapp.azure.com
+
+
