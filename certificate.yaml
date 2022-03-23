@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: hello
+  namespace: default
+spec:
+  dnsNames:
+    - helloworldz.eastus.cloudapp.azure.com
+  secretName: example-app-tls
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
